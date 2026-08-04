@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TakisStore | Jual Beli Akun Mobile Legends</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+  
+  <!-- GSAP & Plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== PARTICLE BACKGROUND ===== -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- ===== PRELOADER ===== -->
+  <div id="preloader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">TakisStore</div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header id="header">
+    <div class="logo">
+      <span class="logo-icon">🏆</span>
+      <span class="logo-text">TakisStore</span>
+    </div>
+    <nav class="nav">
+      <a href="#accounts">Akun</a>
+      <a href="#services">Layanan</a>
+      <a href="#howto">Cara</a>
+      <a href="#testimonials">Testimoni</a>
+    </nav>
+    <button class="wa-btn" onclick="openWA()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat Admin
+    </button>
+  </header>
+
+  <!-- ===== BANNER HERO ===== -->
+  <section class="banner" id="hero">
+    <div class="banner-badge">⚡ Marketplace Premium</div>
+    <h1>
+      <span class="gradient-text">TakisStore</span>
+      <br />
+      <span id="typed-text"></span><span class="cursor">|</span>
+    </h1>
+    <p class="banner-sub">Akun Original • Full Skin • Rank Tinggi • Aman & Bergaransi</p>
+    <div class="banner-actions">
+      <a href="#accounts" class="btn-primary">Lihat Akun →</a>
+      <a href="#" class="btn-secondary" onclick="openWA()">💬 Chat Admin</a>
+    </div>
+    <div class="banner-stats">
+      <div class="stat">
+        <span class="stat-number" data-count="150">0</span>
+        <span class="stat-label">Akun Terjual</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-count="98">0</span>
+        <span class="stat-label">% Puas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-count="24">0</span>
+        <span class="stat-label">/7 Support</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTROLS ===== -->
+  <div class="controls" id="accounts">
+    <div class="controls-inner">
+      <div class="search-wrapper">
+        <button class="filter-btn rank-btn" id="rankBtn">
+          <span id="rankText">Rank</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <input type="text" class="search-input" id="searchInput" placeholder="Cari hero, skin, rank..." oninput="filterAccounts()" />
+
+        <button class="filter-btn price-btn" id="priceBtn">
+          <span id="priceText">Harga</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Rank Dropdown -->
+      <div class="dropdown rank-dropdown" id="rankDropdown">
+        <div class="dropdown-item active" data-value="all">🏷️ Semua Rank</div>
+        <div class="dropdown-item" data-value="Warrior">🥉 Warrior</div>
+        <div class="dropdown-item" data-value="Elite">🥈 Elite</div>
+        <div class="dropdown-item" data-value="Master">🥇 Master</div>
+        <div class="dropdown-item" data-value="Grandmaster">⭐ Grandmaster</div>
+        <div class="dropdown-item" data-value="Epic">🔥 Epic</div>
+        <div class="dropdown-item" data-value="Legend">👑 Legend</div>
+        <div class="dropdown-item" data-value="Mythic">💎 Mythic</div>
+        <div class="dropdown-item" data-value="Mythic Honor">🌟 Mythic Honor</div>
+        <div class="dropdown-item" data-value="Mythic Glory">⚡ Mythic Glory</div>
+        <div class="dropdown-item" data-value="Mythic Immortal">🏆 Mythic Immortal</div>
+      </div>
+
+      <!-- Price Dropdown -->
+      <div class="dropdown price-dropdown" id="priceDropdown">
+        <div class="price-input-group">
+          <label>💰 Min Harga (rb)</label>
+          <input type="text" id="minPrice" placeholder="100.000" inputmode="numeric">
+        </div>
+        <div class="price-input-group">
+          <label>💰 Max Harga (rb)</label>
+          <input type="text" id="maxPrice" placeholder="500.000" inputmode="numeric">
+        </div>
+        <button class="apply-btn" id="applyPrice">✅ Terapkan</button>
+        <button class="reset-btn" id="resetPrice">⟳ Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ACCOUNTS GRID ===== -->
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">🎮 Akun <span>Ready</span></h2>
+      <span class="account-count" id="accountCount">6 akun tersedia</span>
+    </div>
+    <div class="accounts-grid" id="accountsGrid"></div>
+  </div>
+
+  <!-- ===== LAYANAN ===== -->
+  <section class="section" id="services">
+    <h2 class="section-title">🛡️ Layanan Kami</h2>
+    <div class="services">
+      <div class="service-card">
+        <div class="icon">🛡️</div>
+        <h3>Garansi 7 Hari</h3>
+        <p>Jika ada masalah login dalam 7 hari, kami ganti atau refund 100%.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">⚡</div>
+        <h3>Proses Cepat</h3>
+        <p>Akun dikirim maksimal 5-10 menit setelah pembayaran.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🔒</div>
+        <h3>Akun Original</h3>
+        <p>Semua akun original dan sudah diamankan dengan email bind.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">💬</div>
+        <h3>CS 24 Jam</h3>
+        <p>Admin siap membantu kapan saja via WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CARA BELI & JUAL ===== -->
+  <section class="section" id="howto">
+    <h2 class="section-title">📖 Cara Beli & Jual Akun</h2>
+    <div class="howto">
+      <div class="howto-card">
+        <h3>🛒 Cara Membeli</h3>
+        <ol>
+          <li>Pilih akun yang diinginkan</li>
+          <li>Klik "Lihat Detail" atau chat admin</li>
+          <li>Konfirmasi ketersediaan & detail akun</li>
+          <li>Transfer sesuai harga yang disepakati</li>
+          <li>Akun dikirim maksimal 10 menit</li>
+          <li>Garansi 7 hari penuh</li>
+        </ol>
+      </div>
+      <div class="howto-card">
+        <h3>💰 Cara Menjual</h3>
+        <ol>
+          <li>Chat admin via WhatsApp</li>
+          <li>Kirim detail akun (rank, skin, hero, login)</li>
+          <li>Admin survey & kasih harga terbaik</li>
+          <li>Deal → akun dicek bersama</li>
+          <li>Pembayaran cair secepatnya</li>
+          <li>Proses aman & terpercaya</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONI ===== -->
+  <section class="section" id="testimonials">
+    <h2 class="section-title">⭐ Testimoni Pembeli</h2>
+    <div class="testimoni">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Akun bagus, proses cepat, admin ramah. Recommended!"</p>
+        <span>— Rizky, Jakarta</span>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Sudah beli 2x di sini, selalu aman dan sesuai deskripsi."</p>
+        <span>— Dina, Bandung</span>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Harga murah, rank tinggi, ada garansinya. Mantap!"</p>
+        <span>— Andi, Surabaya</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MODAL DETAIL ===== -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Detail Akun</h3>
+        <button class="close" onclick="closeModal()">×</button>
+      </div>
+      <div class="image-scroller" id="imageScroller"></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn-buy" id="btnBuy" onclick="buy()">🛒 Beli Sekarang</button>
+        <button class="btn-wa" onclick="openWA()">💬 WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer-pro">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>🏆 TakisStore</h4>
+        <p>Toko akun Mobile Legends terpercaya. Akun original, full skin, rank tinggi, aman & bergaransi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>📞 Customer Service</h4>
+        <p>Admin CS 24 Jam</p>
+        <a href="https://wa.me/6285803324527" target="_blank">WhatsApp: 0858-0332-4527</a>
+        <a href="https://wa.me/6285803324527" target="_blank">Chat Sekarang →</a>
+      </div>
+      <div class="footer-col">
+        <h4>📱 Sosial Media</h4>
+        <a href="https://www.tiktok.com/@takisstore" target="_blank">TikTok @takisstore</a>
+        <a href="https://www.instagram.com/takisstore" target="_blank">Instagram @takisstore</a>
+      </div>
+      <div class="footer-col">
+        <h4>ℹ️ Informasi</h4>
+        <p>Garansi 7 Hari</p>
+        <p>Proses Cepat & Aman</p>
+        <p>Akun Original</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 TakisStore — All Rights Reserved
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="background.js"></script>
+  <script src="script.js"></script>
+  
+  <!-- ===== GSAP INIT ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Register GSAP plugins
+      gsap.registerPlugin(ScrollTrigger, TextPlugin);
+      
+      // === PRELOADER ===
+      const preloader = document.getElementById('preloader');
+      gsap.to(preloader, {
+        opacity: 0,
+        duration: 0.8,
+        delay: 1.2,
+        onComplete: () => {
+          preloader.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+
+      // === TYPING TEXT ===
+      const words = [
+        'Jual Akun Mobile Legends',
+        'Beli Akun Mobile Legends',
+        'Akun Original & Bergaransi',
+        'Rank Tinggi & Full Skin'
+      ];
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const typedElement = document.getElementById('typed-text');
+
+      function typeEffect() {
+        const current = words[wordIndex];
+        if (!isDeleting) {
+          typedElement.textContent = current.substring(0, charIndex + 1);
+          charIndex++;
+          if (charIndex === current.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+          }
+          setTimeout(typeEffect, 80);
+        } else {
+          typedElement.textContent = current.substring(0, charIndex - 1);
+          charIndex--;
+          if (charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            setTimeout(typeEffect, 500);
+            return;
+          }
+          setTimeout(typeEffect, 40);
+        }
+      }
+      typeEffect();
+
+      // === HERO ANIMATION ===
+      gsap.from('.banner-badge', {
+        opacity: 0,
+        y: -30,
+        duration: 0.8,
+        delay: 1.5
+      });
+      
+      gsap.from('.banner-sub', {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: 1.8
+      });
+      
+      gsap.from('.banner-actions', {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: 2.0
+      });
+      
+      gsap.from('.banner-stats', {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: 2.2
+      });
+
+      // === HEADER SCROLL ===
+      ScrollTrigger.create({
+        trigger: document.body,
+        start: 'top -50',
+        onUpdate: (self) => {
+          const header = document.getElementById('header');
+          if (self.progress > 0) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        }
+      });
+
+      // === SERVICE CARDS STAGGER ===
+      gsap.from('.service-card', {
+        scrollTrigger: {
+          trigger: '#services',
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        },
+        opacity: 0,
+        y: 50,
+        duration: 0.6,
+        stagger: 0.15
+      });
+
+      // === HOWTO CARDS ===
+      gsap.from('.howto-card', {
+        scrollTrigger: {
+          trigger: '#howto',
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        },
+        opacity: 0,
+        x: -50,
+        duration: 0.7,
+        stagger: 0.2
+      });
+
+      // === TESTIMONI ===
+      gsap.from('.testi-card', {
+        scrollTrigger: {
+          trigger: '#testimonials',
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        },
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.6,
+        stagger: 0.15
+      });
+
+      // === ACCOUNTS ===
+      gsap.from('.card', {
+        scrollTrigger: {
+          trigger: '#accounts',
+          start: 'top 70%',
+          toggleActions: 'play none none none'
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        stagger: 0.08
+      });
+    });
+  </script>
+
+</body>
+          </html>
